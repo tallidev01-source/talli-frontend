@@ -70,6 +70,7 @@ export const addPayer = createAsyncThunk(
       );
 
       console.log(data);
+      console.log("data");
       return fulfillWithValue(data);
     } catch (err) {
       console.log(err);
@@ -104,6 +105,7 @@ export const updatePayer = createAsyncThunk(
       );
 
       console.log(data);
+      console.log("data");
       return fulfillWithValue(data);
     } catch (err) {
       console.log(err);

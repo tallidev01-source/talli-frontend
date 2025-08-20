@@ -42,11 +42,11 @@ export function EditPaymentDrawer({
 }) {
   const dispatch = useDispatch();
 
-  const [payment, setPayment] = useState(selectedPayment?.day?.amount || 0);
+  const [payment, setPayment] = useState(0);
 
   const [error, setError] = useState("");
 
-  const [value, setValue] = useState(selectedPayment?.day?.paymentMethod || "");
+  const [value, setValue] = useState("");
 
   const [passHighlight, setPassHighlight] = useState(false);
 
@@ -54,7 +54,17 @@ export function EditPaymentDrawer({
     (state) => state.payment
   );
 
-  const handleAddPayment = async (e) => {
+
+
+  useEffect(() => {
+  if (selectedPayment?.day) {
+    setPayment(selectedPayment.day.amount || 0);
+    setValue(selectedPayment.day.paymentMethod || "");
+  }
+}, [selectedPayment])
+
+
+  const handleUpdatePayment = async (e) => {
     e.preventDefault();
     try {
       if (!value) {
@@ -170,7 +180,7 @@ export function EditPaymentDrawer({
                   transition={{ duration: 0.6, ease: "easeOut" }}
                   className="w-full flex justify-center items-center pt-5"
                 >
-                  <form onSubmit={handleAddPayment} className="w-full">
+                  <form onSubmit={handleUpdatePayment} className="w-full">
                     <div className="flex flex-col gap-6 text-slate-100 w-full">
                       <div className="flex flex-col gap-2">
                         <div className="grid gap-3">

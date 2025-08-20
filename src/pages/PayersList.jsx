@@ -46,8 +46,8 @@ const PayersList = () => {
   return (
     <div className="w-full h-full p-3">
       <h2 className="font-bold text-lg">Payers List</h2>
-      <div className="grid lg:grid-cols-12 gap-3">
-        <div className="md:col-span-8">
+      <div className="flex flex-col md:flex-row gap-3">
+        <div className="w-full md:w-8/12">
           <PayersTable
             columns={payersColumns}
             data={myPayers}
@@ -60,7 +60,7 @@ const PayersList = () => {
             handleDelete={handleDelete}
           />
         </div>
-        <div className="lg:col-span-4 flex justify-center items-center">
+        <div className="w-full md:w-4/12 flex justify-center items-center">
           <PayerAddForm
             isEditing={isEditing}
             setIsEditing={setIsEditing}

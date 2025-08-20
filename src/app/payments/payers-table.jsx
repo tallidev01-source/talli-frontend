@@ -58,7 +58,7 @@ export function PayersTable({ columns, data ,setSelectedDate,selectedDate,select
   return (
     <div>
       {/* Filter + Calendar */}
-      <div className="flex py-2 items-end justify-end">
+      <div className="flex py-2 items-end justify-end w-full">
         <Input
           placeholder="Search Payers Name..."
           value={table.getColumn("name")?.getFilterValue() || ""}

@@ -34,10 +34,6 @@ export function PayerAddForm({
   console.log(payersInfo);
   console.log("payersInfo");
 
-  const [error, setError] = useState("");
-
-  // const [passHighlight, setPassHighlight] = useState(false);
-
   const { successMessage, errorMessage } = useSelector((state) => state.payer);
 
 const handleAddPayer = async (e) => {
@@ -80,8 +76,7 @@ const handleAddPayer = async (e) => {
     setIsEditing(false);
   } catch (err) {
     console.error(err);
-    setError(err)
-    toast.error(err.message || "Something went wrong");
+  
   }
 };
 
@@ -151,11 +146,9 @@ const handleAddPayer = async (e) => {
               placeholder="Contact"
             />
           </div>
-          {error && <div className="text-red-500 text-sm">{error}</div>}
           <div className="flex flex-col gap-3">
             <Button
               type="submit"
-              onClick={() => console.log("Submit payment for:", selectedRow)}
             >
               {isEditing ? "Update info" : "Add Payer"}
             </Button>

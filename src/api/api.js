@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const local = "http://localhost:5000";
-const prod = "https://api.example.com";
+const prod = "https://talli-backend.onrender.com";
 
 let api_url = "";
 
