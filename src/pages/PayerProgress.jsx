@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
-import { getMyPayersPayment } from "../store/reducers/paymentReducer";
+import { getMyPayersPayment, } from "../store/reducers/paymentReducer";
 import PaymentCalendar from "../components/date-payed-shower";
 import { MonthPicker } from "../components/month-picker";
 import { ChartBarStacked } from "../components/charts/bar-chart";
@@ -83,14 +83,14 @@ const PayerProgress = () => {
           <div>Loading payment data...</div>
         ) : allDates ? (
           <div className="p-2">
-            <div className="w-full flex justify-between items-center">
-              <h2 className="font-bold text-xl">
+            <div className="w-full flex flex-col-reverse gap-1.5 md:justify-between items-center">
+              <h2 className="font-bold text-xl text-center">
                 PAYMENT PROGRESS FOR{" "}
                 <span className="uppercase">
                   {monthNames[selectedMonthYear.month - 1]}
                 </span>
               </h2>
-              <div className="w-fit">
+              <div className="w-fit self-end">
                 <MonthPicker
                   onMonthChange={handleMonthChange}
                   selectedMonthYear={selectedMonthYear}

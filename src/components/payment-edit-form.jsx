@@ -10,8 +10,8 @@ import { Label } from "@/components/ui/label";
 import { motion, useAnimation } from "framer-motion";
 
 import {
-  addPayment,
   messageClear,
+  updatePayment
 } from "../../src/store/reducers/paymentReducer"; // import it
 import { Calendar28 } from "@/components/date-picker";
 
@@ -37,14 +37,14 @@ import toast from "react-hot-toast";
 export function EditPaymentDrawer({
   open,
   onOpenChange,
-  selectedRow,
+  // selectedRow,
   selectedPayment,
 }) {
   const dispatch = useDispatch();
 
   const [payment, setPayment] = useState(0);
 
-  const [error, setError] = useState("");
+  // const [error, setError] = useState("");
 
   const [value, setValue] = useState("");
 
@@ -67,22 +67,15 @@ export function EditPaymentDrawer({
   const handleUpdatePayment = async (e) => {
     e.preventDefault();
     try {
-      if (!value) {
-        toast.error("Payment Value is required");
-        setPassHighlight(true);
-        return;
-      }
-
       dispatch(
-        addPayment({
+        updatePayment({
           amount: payment,
           paymentMethod: value,
-          payerId: selectedRow._id,
-          // paidAt: selectedDate,
+          paymentId: selectedPayment.day.paymentId
         })
       );
     } catch (err) {
-      setError(err);
+      // setError(err);
       console.log(err);
     }
   };
@@ -214,15 +207,12 @@ export function EditPaymentDrawer({
                         </div>
                       </div>
 
-                      {error && (
+                      {/* {error && (
                         <div className="text-red-500 text-sm">{error}</div>
-                      )}
+                      )} */}
                       <div className="flex flex-col gap-3">
                         <Button
                           type="submit"
-                          onClick={() =>
-                            console.log("Submit payment for:", selectedRow)
-                          }
                         >
                           Update Payment
                         </Button>

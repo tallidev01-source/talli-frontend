@@ -1,6 +1,40 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import api from "../../api/api";
 
+export const updatePayment = createAsyncThunk(
+  "payment/updatePayment",
+  async (
+    { amount, paymentMethod,paymentId },
+    { fulfillWithValue, rejectWithValue, getState }
+  ) => {
+    const { token } = getState().auth;
+    const config = {
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    };
+    try {
+      const { data } = await api.put(
+        `/payment/update-payment/${paymentId}`,
+        {
+          amount,
+          paymentMethod,
+          paymentId
+        },
+        config
+      );
+
+
+      console.log(data)
+      console.log("data")
+
+      return fulfillWithValue(data);
+    } catch (err) {
+      console.log(err);
+      return rejectWithValue(err.response.data);
+    }
+  }
+);
 export const addPayment = createAsyncThunk(
   "payment/addPayment",
   async (
@@ -88,6 +122,7 @@ export const paymentReducer = createSlice({
     errorMessage: "",
     successMessage: "",
     payers: {},
+    payer: {},
     myPayers: {},
     payment: {},
     totalPayments: 0,
@@ -95,6 +130,7 @@ export const paymentReducer = createSlice({
     totalAmount: 0,
     allDates: [],
     chartData: []
+  
   },
   reducers: {
     messageClear: (state) => {
@@ -167,6 +203,19 @@ export const paymentReducer = createSlice({
       state.chartData = action.payload.chartData;
     });
     builder.addCase(getMyPayersPayment.rejected, (state, action) => {
+      state.loader = false;
+      state.errorMessage = action.payload.error;
+    });
+
+
+    builder.addCase(updatePayment.pending, (state) => {
+      state.loader = true;
+    });
+    builder.addCase(updatePayment.fulfilled, (state, action) => {
+      state.loader = false;
+      state.successMessage = action.payload.message;
+    });
+    builder.addCase(updatePayment.rejected, (state, action) => {
       state.loader = false;
       state.errorMessage = action.payload.error;
     });

@@ -5,7 +5,7 @@ const prod = "https://talli-backend.onrender.com";
 
 let api_url = "";
 
-let mode = "dev"
+let mode = "prod"
 
 if(mode === "dev"){
     api_url = local
