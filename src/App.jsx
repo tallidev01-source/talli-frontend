@@ -9,12 +9,15 @@ import PayersList from "./pages/PayersList";
 import PayerProgress from "./pages/PayerProgress";
 import ChangePassword from "./pages/ChangePassword";
 import ProtectUser from "./utils/ProtectUser";
+import PageNotFound from "./utils/PageNotFound";
 
 
 function App() {  
   return (
        <Routes>
         <Route path="/login" element={<Login />} />
+        <Route path="*" element={<PageNotFound/>} />
+
         {/* Protected routes */}
         <Route element={<ProtectUser />}>
           <Route element={<Main />}>
