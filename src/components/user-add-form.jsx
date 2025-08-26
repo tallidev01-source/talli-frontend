@@ -19,7 +19,7 @@ import toast from "react-hot-toast";
 export function PayerAddForm({
   // open,
   onOpenChange,
-  isEditing,
+  // isEditing,
   selectedRow,
   setIsEditing,
   setSelectedRow
@@ -31,10 +31,11 @@ export function PayerAddForm({
     contact: "",
   });
 
-  console.log(payersInfo);
-  console.log("payersInfo");
 
   const { successMessage, errorMessage } = useSelector((state) => state.payer);
+
+    console.log(selectedRow)
+  console.log("selectedRow------------------------------")
 
 const handleAddPayer = async (e) => {
   e.preventDefault();
@@ -44,6 +45,8 @@ const handleAddPayer = async (e) => {
     return;
   }
 
+
+
   // Validate contact number format
   const contactPattern = /^09\d{9}$/; // must start with 09 and have 11 digits
   if (!contactPattern.test(payersInfo.contact)) {
@@ -52,7 +55,7 @@ const handleAddPayer = async (e) => {
   }
 
   try {
-    if (isEditing) {
+    if (selectedRow) {
       await dispatch(
         updatePayer({
           id: selectedRow._id,
@@ -150,7 +153,7 @@ const handleAddPayer = async (e) => {
             <Button
               type="submit"
             >
-              {isEditing ? "Update info" : "Add Payer"}
+              {selectedRow ? "Update info" : "Add Payer"}
             </Button>
           </div>
         </div>

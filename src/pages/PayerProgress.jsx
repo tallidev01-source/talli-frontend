@@ -10,12 +10,11 @@ import { EditPaymentDrawer } from "./../components/payment-edit-form";
 const PayerProgress = () => {
   const dispatch = useDispatch();
   const { payerId } = useParams();
-  const hasFetched = useRef(false);
+  // const hasFetched = useRef(false);
 
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [selectedPayment, setSelectedPayment] = useState(null);
-  console.log(selectedPayment);
-  console.log("selectedPayment");
+
   // const [setSelectedDate,selectedDate] = useState(null);
 
   const {
@@ -26,8 +25,9 @@ const PayerProgress = () => {
     loader,
     payer,
     chartData,
+    editUpdate
   } = useSelector((state) => state.payment);
-
+ const prevEditUpdate = useRef(editUpdate); // ✅ declare at top level
   const monthNames = [
     "January",
     "February",
@@ -50,9 +50,9 @@ const PayerProgress = () => {
     monthName: monthNames[currentDate.getMonth() + 1],
   });
 
+  // 🔹 Always fetch when payerId or selectedMonthYear changes
   useEffect(() => {
-    if (payerId && !hasFetched.current) {
-      hasFetched.current = true;
+    if (payerId) {
       dispatch(
         getMyPayersPayment({
           payerId,
@@ -61,7 +61,23 @@ const PayerProgress = () => {
         })
       );
     }
-  }, [payerId, dispatch, selectedMonthYear]);
+  }, [payerId, selectedMonthYear, dispatch]);
+
+  // 🔹 Fetch again when editUpdate goes from false -> true
+  useEffect(() => {
+    if (prevEditUpdate.current === false && editUpdate === true && payerId) {
+      dispatch(
+        getMyPayersPayment({
+          payerId,
+          year: selectedMonthYear.year,
+          month: selectedMonthYear.month,
+        })
+      );
+    }
+
+    prevEditUpdate.current = editUpdate;
+  }, [editUpdate, payerId, selectedMonthYear, dispatch]);
+
 
   const handleMonthChange = (data) => {
     setSelectedMonthYear(data);

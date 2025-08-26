@@ -119,6 +119,7 @@ export const paymentReducer = createSlice({
   name: "payment",
   initialState: {
     loader: false,
+    editUpdate: false,
     errorMessage: "",
     successMessage: "",
     payers: {},
@@ -136,6 +137,9 @@ export const paymentReducer = createSlice({
     messageClear: (state) => {
       state.errorMessage = "";
       state.successMessage = "";
+    },
+    editUpdateReset: (state) => {
+      state.editUpdate = false
     },
   },
   extraReducers: (builder) => {
@@ -210,12 +214,15 @@ export const paymentReducer = createSlice({
 
     builder.addCase(updatePayment.pending, (state) => {
       state.loader = true;
+      state.editUpdate= false
     });
     builder.addCase(updatePayment.fulfilled, (state, action) => {
       state.loader = false;
+      state.editUpdate= true,
       state.successMessage = action.payload.message;
     });
     builder.addCase(updatePayment.rejected, (state, action) => {
+      state.editUpdate= false,
       state.loader = false;
       state.errorMessage = action.payload.error;
     });
@@ -223,6 +230,6 @@ export const paymentReducer = createSlice({
 });
 
 // export default paymentReducer
-export const { messageClear, redirectClear, user_reset } =
+export const { messageClear,editUpdateReset } =
   paymentReducer.actions;
 export default paymentReducer.reducer;

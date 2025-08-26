@@ -11,7 +11,8 @@ import { motion, useAnimation } from "framer-motion";
 
 import {
   messageClear,
-  updatePayment
+  updatePayment,
+  editUpdateReset
 } from "../../src/store/reducers/paymentReducer"; // import it
 import { Calendar28 } from "@/components/date-picker";
 
@@ -90,6 +91,7 @@ export function EditPaymentDrawer({
     if (successMessage) {
       toast.success(successMessage);
       dispatch(messageClear());
+      dispatch(editUpdateReset());
       // messageClear()
       setPayment("");
       setValue("");

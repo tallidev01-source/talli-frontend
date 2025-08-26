@@ -28,7 +28,7 @@ import { PaymentDrawer } from "@/components/payment-add-form";
 /**
  * @param {{ columns: any[], data: any[] }} props
  */
-export function PayersTable({ columns, data ,setSelectedDate,selectedDate,selectedRow, setSelectedRow,toDeleteRow, setToDeleteRow,handleDelete }) {
+export function PayersTable({ columns, data ,setSelectedDate,selectedDate,selectedRow, setSelectedRow,toDeleteRow, setToDeleteRow,handleDelete,  setIsEditing }) {
   const [sorting, setSorting] = React.useState([]);
   const [columnFilters, setColumnFilters] = React.useState([]);
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -40,7 +40,7 @@ export function PayersTable({ columns, data ,setSelectedDate,selectedDate,select
 
   const table = useReactTable({
    data,
-   columns: columns(setDrawerOpen, setSelectedRow,selectedRow,toDeleteRow, setToDeleteRow,handleDelete ), 
+   columns: columns(setDrawerOpen, setSelectedRow,selectedRow,toDeleteRow, setToDeleteRow,handleDelete,setIsEditing), 
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     getSortedRowModel: getSortedRowModel(),
