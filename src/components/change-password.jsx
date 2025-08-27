@@ -53,11 +53,6 @@ export function ChangePassForm({ className, ...props }) {
           },
         })
       );
-
-      // dispatch(ChangeUserPassWord({ currentPassword, newPassword, retypedPassword }));
-      // dispatch(ChangeUserPassWord({ currentPassword, newPassword }));
-
-      // toast.success("Password updated successfully");
     } catch (err) {
       console.error("Error changing password:", err);
       setError(err.message || "Something went wrong");
@@ -66,14 +61,14 @@ export function ChangePassForm({ className, ...props }) {
   };
 
   return (
-    <div className={cn("flex flex-col gap-6 mx-4 md:mx-0")} {...props}>
+    <div className={cn("flex flex-col gap-6 mx-4 md:mx-0 ")} {...props}>
       <Card className={cn("flex flex-col gap-6 text-slate-100", className)}>
         <CardHeader>
-          <div className="text-center w-full">
-            <h2 className="font-bold text-lg">Welcome back!</h2>
+          <div className="text-start w-full">
+            <h2 className="font-bold text-lg">Change Password</h2>
           </div>
           <CardDescription className="text-xs">
-            Enter your email below to login to your account
+            Update your password to keep your account secure.
           </CardDescription>
         </CardHeader>
         <CardContent>
